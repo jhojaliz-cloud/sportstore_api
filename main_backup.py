@@ -1,6 +1,5 @@
 from fastapi import FastAPI
 import xmlrpc.client
-from rapidfuzz import fuzz
 
 app = FastAPI()
 
@@ -202,14 +201,9 @@ def buscar_producto(texto):
 
             texto_producto = limpiar(nombre + " " + " ".join(atributos))
 
-            # ✅ MATCH INTELIGENTE
-            score = fuzz.partial_ratio(
-                modelo.lower(),
-                texto_producto.lower()
-            )
-
+            # ✅ MATCH EXACTO
             if (
-                score >= 70
+                modelo in texto_producto
                 and talla == talla_real
                 and (color == color_real if color else True)
                 and p.get("qty_available", 0) > 0
@@ -227,14 +221,9 @@ def buscar_producto(texto):
                     "mensaje": f"Sí 😊 tengo disponible el {p['name']} color {color_real} talla {talla_real} por ${int(p['list_price']):,}. Tenemos {int(p['qty_available'])} unidades disponibles 👟"
                 }
 
-            # 🔥 sugerencias inteligentes
-            score_sugerencia = fuzz.partial_ratio(
-                modelo.lower(),
-                texto_producto.lower()
-            )
-
+            # 🔥 sugerencias
             if (
-                score_sugerencia >= 60
+                modelo in texto_producto
                 and p.get("qty_available", 0) > 0
             ):
 
@@ -282,8 +271,8 @@ def get_producto(texto: str = ""):
         }
 
     return {
-        "data": buscar_producto(texto)
-    }
+    "data": buscar_producto(texto)
+}
 
 
 # 🛒 CREAR PEDIDO
@@ -383,4 +372,4 @@ def debug_productos():
 
     productos = obtener_productos()
 
-    return productos[:20]
+    return productos[:20]   
