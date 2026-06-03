@@ -217,7 +217,8 @@ def buscar_producto(texto):
 
             if (
                 score >= 70
-                and (talla == talla_real if talla else True)
+                and talla
+                and (talla == talla_real)
                 and (color == color_real if color else True)
                 and p.get("qty_available", 0) > 0
             ):
@@ -253,6 +254,9 @@ def buscar_producto(texto):
                     "stock": p["qty_available"],
                     "precio": p["list_price"]
                 })
+                print("TOTAL SUGERENCIAS:", len(sugerencias))
+                print("TALLA BUSCADA:", talla)
+                print("COLOR BUSCADO:", color)
                 # CONSULTA DE CATALOGO
         if sugerencias and not talla and not color:
 
