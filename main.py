@@ -170,6 +170,10 @@ def buscar_producto(texto):
 
         modelo, talla, color = extraer_datos(texto)
 
+        print("MODELO EXTRAIDO:", modelo)
+        print("TALLA EXTRAIDA:", talla)
+        print("COLOR EXTRAIDO:", color)
+
         productos = obtener_productos()
 
         sugerencias = []
@@ -207,10 +211,13 @@ def buscar_producto(texto):
                 modelo.lower(),
                 texto_producto.lower()
             )
+            print("MODELO:", modelo)
+            print("PRODUCTO:", texto_producto)
+            print("SCORE:", score)
 
             if (
                 score >= 70
-                and talla == talla_real
+                and (talla == talla_real if talla else True)
                 and (color == color_real if color else True)
                 and p.get("qty_available", 0) > 0
             ):
@@ -246,6 +253,27 @@ def buscar_producto(texto):
                     "stock": p["qty_available"],
                     "precio": p["list_price"]
                 })
+                # CONSULTA DE CATALOGO
+        if sugerencias and not talla and not color:
+
+            primera = sugerencias[0]
+
+            tallas = sorted(
+                list(
+                    set(
+                        [s["talla"] for s in sugerencias if s["talla"]]
+                    )
+                )
+            )
+
+            return {
+                "disponible": True,
+                "producto_id": primera["producto_id"],
+                "nombre": primera["nombre"],
+                "color": primera["color"],
+                "precio": primera["precio"],
+                "mensaje": f"Sí 😊 tengo disponible el {primera['nombre']} en color {primera['color']}. Lo manejamos en tallas {', '.join(tallas)} por ${int(primera['precio']):,} 👟"
+            }
 
         # 🔥 sugerencias encontradas
         if sugerencias:
