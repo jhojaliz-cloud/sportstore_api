@@ -272,8 +272,12 @@ def buscar_producto(texto):
 
             return {
                 "disponible": True,
-                "mensaje": "CATALOGO ACTIVADO"
-                
+                "producto_id": primera["producto_id"],
+                "nombre": primera["nombre"],
+                "color": primera["color"],
+                "precio": primera["precio"],
+                "imagen": f"{url}/web/image/product.product/{primera['producto_id']}/image_1920",
+                "mensaje": f"Sí 😊 tengo disponible el {primera['nombre']} en color {primera['color']}. Lo manejamos en tallas {', '.join(tallas)} por ${int(primera['precio']):,} 👟"
             }
 
         # 🔥 sugerencias encontradas
