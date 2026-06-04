@@ -253,6 +253,7 @@ def buscar_producto(texto):
                 print("TOTAL SUGERENCIAS:", len(sugerencias))
                 print("TALLA BUSCADA:", talla)
                 print("COLOR BUSCADO:", color)
+                
                 # CONSULTA DE CATALOGO
         if sugerencias and not talla and not color:
 
@@ -277,10 +278,10 @@ def buscar_producto(texto):
                 "disponible": True,
                 "producto_id": primera["producto_id"],
                 "nombre": primera["nombre"],
-                "color": primera["color"],
+                "colores": colores,
                 "precio": primera["precio"],
                 "imagen": f"{url}/web/image/product.product/{primera['producto_id']}/image_1920",
-                "mensaje": f"Sí 😊 tengo disponible el {primera['nombre']} en color {primera['color']}. Lo manejamos en tallas {', '.join(tallas)} por ${int(primera['precio']):,} 👟"
+                "mensaje": f"Sí 😊 tengo disponible el {primera['nombre']} en los colores {', '.join(colores)}. Lo manejamos en tallas {', '.join(tallas)} por ${int(primera['precio']):,} 👟"
             }
 
         # 🔥 sugerencias encontradas
