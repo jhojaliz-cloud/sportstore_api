@@ -41,13 +41,170 @@ def limpiar(texto):
 
 # 🎨 COLORES SOPORTADOS
 COLORES = [
-    "blanco",
-    "negro",
-    "rojo",
-    "azul",
-    "verde",
-    "gris",
-    "beige"
+
+    "blanco","negro","gris","grisclaro","grisoscuro","plata","plateado",
+
+    "rojo","rojooscuro","rojoborgona","vinotinto","granate","carmesi",
+
+    "azul","azulclaro","azuloscuro","azulmarino","azulrey",
+    "azulpetroleo","azulceleste","azulturquesa",
+
+    "verde","verdeoscuro","verdeclaro","verdemilitar",
+    "verdeoliva","verdeesmeralda","verdelimon",
+
+    "amarillo","amarilloclaro","mostaza","dorado","oro",
+
+    "naranja","coral","salmon","durazno",
+
+    "rosado","rosa","fucsia","magenta","palo de rosa",
+
+    "morado","violeta","lila","lavanda","purpura",
+
+    "cafe","café","marron","marrón","chocolate","choco",
+    "miel","caramelo","camel","caoba","tabaco","avellana",
+    "capuccino","cappuccino","latte","arena","tierra",
+
+    "beige","crema","marfil","hueso","perla",
+
+    "khaki","caqui","taupe","topo",
+
+    "cobre","bronce",
+
+    "multicolor","estampado","animalprint","camuflado",
+
+    "aguamarina","menta","mint","jade",
+
+    "terracota","terracotta",
+
+    "champaña","champagne",
+
+    "grafito","antracita",
+
+    "denim","jean","indigo","índigo",
+
+    "cherry","cereza",
+
+    "wine","burgundy","bordo","bordeaux",
+
+    "ivory","offwhite","off-white",
+
+    "petroleo","petróleo",
+
+    "turquesa","aqua","aquamarina",
+
+    "verdebotella","verdebosque","verdepino",
+
+    "azulhielo","azulacero","azulcobalto",
+
+    "rosa viejo","rosaviejo",
+
+    "piel","nude",
+
+    "taba","tan",
+
+    "ceniza",
+
+    "perlado",
+
+    "metalizado",
+
+    "neon","neón",
+
+    "amarilloneon","verdeneon","naranjaneon","rosaneon",
+
+    "blancoroto",
+
+    "grisperla",
+
+    "griscemento",
+
+    "grisplomo",
+
+    "grisgrafito",
+
+    "azulink",
+
+    "azulnavy",
+
+    "navy",
+
+    "chocolateoscuro",
+
+    "chocolateclaro",
+
+    "cafetostado",
+
+    "cafemoka",
+
+    "moka",
+
+    "mocca",
+
+    "espresso",
+
+    "cognac",
+
+    "whisky",
+
+    "almendra",
+
+    "almond",
+
+    "sand",
+
+    "sandia",
+
+    "mentaoscuro",
+
+    "oliva",
+
+    "olive",
+
+    "forest",
+
+    "forestgreen",
+
+    "military",
+
+    "militar",
+
+    "ice",
+
+    "iceblue",
+
+    "skyblue",
+
+    "royalblue",
+
+    "electricblue",
+
+    "electric",
+
+    "lime",
+
+    "limegreen",
+
+    "negro mate",
+
+    "negromate",
+
+    "negrobrillante",
+
+    "charol",
+
+    "charolnegro",
+
+    "charolbeige",
+
+    "charolmiel",
+
+    "charolchocolate",
+
+    "suela",
+
+    "gum",
+
+    "gumsole"
 ]
 
 
@@ -173,7 +330,7 @@ def buscar_producto(texto):
         print("MODELO:", modelo)
         print("TALLA:", talla)
         print("COLOR:", color)
-        
+
         productos = obtener_productos()
 
         sugerencias = []
