@@ -419,4 +419,7 @@ def debug_productos():
 
     productos = obtener_productos()
 
-    return productos[:20]
+    return {
+        "total_productos": len(productos),
+        "productos": productos
+    }
