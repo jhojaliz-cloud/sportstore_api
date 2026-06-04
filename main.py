@@ -189,20 +189,16 @@ def buscar_producto(texto):
 
             # 🔥 recorrer atributos
             for a in atributos:
-
                 a_limpio = limpiar(a)
-
+                
                 # detectar talla
-                for numero in range(20, 50):
-
-                    if str(numero) in a_limpio:
-                        talla_real = str(numero)
-
-                # detectar color
-                for c in COLORES:
-
-                    if c in a_limpio:
-                        color_real = c
+                if a_limpio.isdigit():
+                    talla_real = a_limpio
+                
+                # todo lo que no sea talla se toma como atributo/color
+                else:
+                    
+                    color_real = a_limpio
 
             texto_producto = limpiar(nombre + " " + " ".join(atributos))
 
@@ -266,6 +262,13 @@ def buscar_producto(texto):
                 list(
                     set(
                         [s["talla"] for s in sugerencias if s["talla"]]
+                    )
+                )
+            )
+            colores = sorted(
+                list(
+                    set(
+                        [s["color"] for s in sugerencias if s["color"]]
                     )
                 )
             )
