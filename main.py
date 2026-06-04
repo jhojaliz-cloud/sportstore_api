@@ -169,11 +169,11 @@ def buscar_producto(texto):
     try:
 
         modelo, talla, color = extraer_datos(texto)
-
-        print("MODELO EXTRAIDO:", modelo)
-        print("TALLA EXTRAIDA:", talla)
-        print("COLOR EXTRAIDO:", color)
-
+        print("TEXTO ORIGINAL:", texto)
+        print("MODELO:", modelo)
+        print("TALLA:", talla)
+        print("COLOR:", color)
+        
         productos = obtener_productos()
 
         sugerencias = []
@@ -213,8 +213,7 @@ def buscar_producto(texto):
 
             if (
                 score >= 70
-                and talla
-                and (talla == talla_real)
+                and (talla == talla_real if talla else True)
                 and (color == color_real if color else True)
                 and p.get("qty_available", 0) > 0
             ):
@@ -241,6 +240,10 @@ def buscar_producto(texto):
                 score_sugerencia >= 60
                 and p.get("qty_available", 0) > 0
             ):
+                
+                # detectar color dinámicamente desde el texto
+                if color_real and color_real in limpiar(texto):
+                    color = color_real
 
                 sugerencias.append({
                     "producto_id": p["id"],
