@@ -1,10 +1,21 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 import xmlrpc.client
 from rapidfuzz import fuzz
 from pydantic import BaseModel
 from typing import List
 
 app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "https://www.sportshoesco.com",
+        "https://sportshoesco.com"
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 class Par(BaseModel):
     color: str
     talla: str
