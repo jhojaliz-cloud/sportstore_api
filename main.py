@@ -1,8 +1,29 @@
 from fastapi import FastAPI
 import xmlrpc.client
 from rapidfuzz import fuzz
+from pydantic import BaseModel
+from typing import List
 
 app = FastAPI()
+class Par(BaseModel):
+    color: str
+    talla: str
+
+
+class PedidoLanding(BaseModel):
+    nombre: str
+    telefono: str
+    ciudad: str
+    direccion: str
+    barrio: str
+
+    producto: str
+    combo: str
+    total: float
+
+    pares: List[Par]
+
+    origen: str = "TikTok"
 
 # 🔐 CONFIG ODOO
 url = 'https://icaltex.odoo.com'
@@ -583,3 +604,72 @@ def debug_productos():
     return {
         "total_productos": len(productos)
     }
+
+# 🧠 CREAR LEAD
+def crear_lead(datos):
+
+    uid, models = conectar_odoo()
+
+    descripcion = f"""
+Producto: {datos.producto}
+Combo: {datos.combo}
+Total: ${datos.total}
+
+Pares:
+"""
+
+    for i, par in enumerate(datos.pares, start=1):
+
+        descripcion += f"""
+Par {i}
+Color: {par.color}
+Talla: {par.talla}
+"""
+
+    descripcion += f"""
+
+Dirección: {datos.direccion}
+Barrio: {datos.barrio}
+Origen: {datos.origen}
+"""
+
+    lead_id = models.execute_kw(
+        db,
+        uid,
+        password,
+        'crm.lead',
+        'create',
+        [{
+            'name': f'TL-{datos.nombre}',
+            'contact_name': datos.nombre,
+            'phone': datos.telefono,
+            'city': datos.ciudad,
+            'street': datos.direccion,
+            'description': descripcion,
+            'source_id': False
+        }]
+    )
+
+    return lead_id
+
+
+@app.post("/api/landing/order")
+def landing_order(datos: PedidoLanding):
+
+    try:
+
+        lead_id = crear_lead(datos)
+
+        return {
+            "success": True,
+            "lead_id": lead_id,
+            "codigo": f"TL-{lead_id}",
+            "mensaje": "Lead creado correctamente"
+        }
+
+    except Exception as e:
+
+        return {
+            "success": False,
+            "error": str(e)
+        }
